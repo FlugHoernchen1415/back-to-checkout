@@ -6,7 +6,13 @@ import static org.junit.Assert.assertEquals;
 public class CheckOutTest {
 
     private int price(String items) {
-        return 0;
+        CheckOut checkOut = new CheckOut();
+
+        for(int i = 0; i < items.length(); i++) {
+            checkOut.scan(items.substring(i, i+1));
+        }
+
+        return checkOut.total();
     }
 
     @Test
@@ -30,6 +36,23 @@ public class CheckOutTest {
 
     @Test
     public void testIncremental() {
+        CheckOut checkOut = new CheckOut();
 
+        assertEquals(0, checkOut.total());
+
+        checkOut.scan("A");
+        assertEquals(50, checkOut.total());
+
+        checkOut.scan("B");
+        assertEquals(80, checkOut.total());
+
+        checkOut.scan("A");
+        assertEquals(130, checkOut.total());
+
+        checkOut.scan("A");
+        assertEquals(160, checkOut.total());
+
+        checkOut.scan("B");
+        assertEquals(175, checkOut.total());
     }
 }
