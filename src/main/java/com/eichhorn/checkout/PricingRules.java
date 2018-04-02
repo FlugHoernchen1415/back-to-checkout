@@ -12,21 +12,19 @@ public class PricingRules {
         normalPricingMap.put(item, price);
     }
 
-    public void addDiscountRule() {
-
+    public void addDiscountRule(String item, Discount discount) {
+        discountPricingMap.put(item, discount);
     }
 
-    public int getPriceForItem(String item) {
-        /*
-            Next Steps for multi pricing strategy
-                1. implement addDiscountRule() Method
-                2. when fetching the price for an item
-                    a) check if the given item is present in the discountPricingMap
-                    b) if given item is present, then check if the condition for the discount does apply
-                    c) return or subtract the discount value
-                    d) else return normal price
-        */
+    public int getPriceForItem(String item, int quantity) {
 
-        return normalPricingMap.get(item);
+        int totalPrice = normalPricingMap.get(item) * quantity;
+
+        if(discountPricingMap.containsKey(item)
+                && quantity / discountPricingMap.get(item).getQuantityNeeded() >= 1) {
+            totalPrice -= quantity / discountPricingMap.get(item).getQuantityNeeded() * discountPricingMap.get(item).getDiscountValue();
+        }
+
+        return totalPrice;
     }
 }
