@@ -10,11 +10,10 @@ public class Discount {
         this.quantityNeeded = quantityNeeded;
     }
 
-    public int getDiscountValue() {
-        return discountValue;
-    }
-
-    public int getQuantityNeeded() {
-        return quantityNeeded;
+    public int calculateDiscount(int quantity) {
+        if(quantity / this.quantityNeeded >= 1) {
+            return quantity / this.quantityNeeded * this.discountValue;
+        }
+        return 0;
     }
 }

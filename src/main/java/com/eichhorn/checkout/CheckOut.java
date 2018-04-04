@@ -12,13 +12,19 @@ public class CheckOut {
         this.pricingRules = pricingRules;
     }
 
+    /**
+     * Adds an Item to an itemMap, which contains all Items and their quantity.
+     * If an Item is already present, then the amount of the Item is increased by one,
+     * otherwise the Item is added as a new Item to the itemMap with an amount of one.
+     *
+     * @param item Item which should be added
+     */
     public void scan(String item) {
         if(!itemsMap.containsKey(item)) {
             itemsMap.put(item, 1);
         } else {
             itemsMap.put(item, itemsMap.get(item) + 1);
         }
-
     }
 
     public int total() {
@@ -27,10 +33,6 @@ public class CheckOut {
         for(Map.Entry<String, Integer> entry : itemsMap.entrySet()) {
             totalPrice += pricingRules.getPriceForItem(entry.getKey(), entry.getValue());
         }
-
-        /*for(int i = 0; i < itemsMap.size(); i++) {
-            totalPrice += pricingRules.getPriceForItem(itemsMap.get(i));
-        }*/
 
         return totalPrice;
     }
